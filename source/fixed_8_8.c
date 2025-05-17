@@ -84,7 +84,7 @@ fixed_8_8_t fixed_mul_8_8(fixed_8_8_t fixed_multiplicand, fixed_8_8_t fixed_mult
         if(b & (1U << i)) {
             product += (int32_t)a << i;
         }
-        printf("Iteration: %d\n", i);
+        printf("Iteration: %d\n", i+1);
         printf("Product bits: \n");
         print_32_bits((uint32_t)product);
     }

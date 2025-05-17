@@ -84,7 +84,7 @@ fixed_24_8_t fixed_mul_24_8(fixed_24_8_t fixed_multiplicand, fixed_24_8_t fixed_
         if(b & (1ULL << i)) {
             product += (int64_t)a << i;
         }
-        printf("Iteration: %d\n", i);
+        printf("Iteration: %d\n", i+1);
         printf("Product bits: \n");
         print_64_bits((uint64_t)product);
     }
