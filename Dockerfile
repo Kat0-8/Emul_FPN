@@ -4,6 +4,9 @@ ARG TARGET_OS=linux
 
 FROM ${DISTRO}:${DISTRO_VERSION}
 
+ARG TARGET_OS
+ENV TARGET_OS=${TARGET_OS}
+
 RUN if [ -f /etc/fedora-release ]; then \
         dnf install -y gcc make glibc-static; \
     elif [ -f /etc/debian_version ]; then \
@@ -28,11 +31,12 @@ COPY Makefile /app/
 
 WORKDIR /app
 
-CMD if [ "$TARGET_OS" = "windows" ]; then \
-        make windows && wine Emul_FPN.exe; \
-    elif [ "$TARGET_OS" = "linux" ]; then \
+CMD ["sh", "-c", \
+    "if [ \"$TARGET_OS\" = \"windows\" ]; then \
+        make && wine Emul_FPN.exe; \
+    elif [ \"$TARGET_OS\" = \"linux\" ]; then \
         make && ./Emul_FPN; \
     else \
-        echo "Error: Invalid TARGET_OS '$TARGET_OS'. Valid options: 'linux' or 'windows'"; \
+        echo \"Error: Invalid TARGET_OS '$TARGET_OS'. Valid options: 'linux' or 'windows'\"; \
         exit 1; \
-    fi
+    fi"]
