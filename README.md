@@ -1,0 +1,1 @@
+Emulator of fixed-point numbers in format Q8.8, Q16.16, Q24.8. Created as course project 
