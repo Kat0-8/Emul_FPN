@@ -222,7 +222,7 @@ Operation_result ALF_fixed_16_16(Operations operation, fixed_16_16_t number_1, f
         }
     }
     if (number == OVERFLOW_16_16) {
-        result.status = OVERFLOW;
+        result.status = FIXED_OVERFLOW;
         return result;
     }
     result.number = convert_from_fixed_16_16(number);

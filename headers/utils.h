@@ -19,7 +19,7 @@ typedef enum {
 typedef enum {
     SUCCESS = 0,
     DIVISION_BY_ZERO,
-    OVERFLOW,
+    FIXED_OVERFLOW,
     INVALID_INPUT
 } Operation_statuses;
 

@@ -32,9 +32,9 @@ $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(call FIXPATH,$(RM) $(TARGET) $(OBJS))
+	$(RM) $(call FIXPATH,$(TARGET) $(OBJS))
 
 cleanse: 
-	$(call FIXPATH,$(RM) $(OBJS))
+	$(RM) $(call FIXPATH,$(OBJS))
 
 .PHONY: all clean

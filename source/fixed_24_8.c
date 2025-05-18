@@ -220,7 +220,7 @@ Operation_result ALF_fixed_24_8(Operations operation, fixed_24_8_t number_1, fix
         }
     }
     if (number == OVERFLOW_24_8) {
-        result.status = OVERFLOW;
+        result.status = FIXED_OVERFLOW;
         return result;
     }
     result.number = convert_from_fixed_24_8(number);

@@ -8,7 +8,7 @@
 
 void print_welcome_screen() {
     printf("FIXED-POINT ARITHMETIC EMULATOR v1.0\n"
-           "────────────────────────────────────────\n"
+           "----------------------------------------\n"
            "Welcome!\n"
            "This tool performs calculations using fixed-point arithmetic\n"
            "It can be used with numbers in formats: Q8.8, Q16.16, Q24.8\n");
@@ -34,7 +34,7 @@ void print_change_precision_menu() {
 
 void print_operation_result(Operation_result* result, double number_1, double number_2, Operations operation) {
     switch(result->status) {
-        case OVERFLOW: {
+        case FIXED_OVERFLOW: {
             const char* overflow_type;
             if(number_1 > 0 && number_2 > 0) {
                 overflow_type = " positive";
@@ -188,8 +188,8 @@ void get_two_double_numbers(double* number_1, double* number_2, Precision_format
         }
         
         if (result == 2) {
-            if (check_overflow(*number_1, current_precision_format) != OVERFLOW &&
-                check_overflow(*number_2, current_precision_format) != OVERFLOW) {
+            if (check_overflow(*number_1, current_precision_format) != FIXED_OVERFLOW &&
+                check_overflow(*number_2, current_precision_format) != FIXED_OVERFLOW) {
                 break;
             }
         } else {
@@ -223,7 +223,7 @@ const char* convert_operation_status_to_string(Operation_statuses status) {
     switch(status){
         case SUCCESS : return "SUCCESS";
         case DIVISION_BY_ZERO : return "DIVISION BY ZERO";
-        case OVERFLOW : return "OVERFLOW";
+        case FIXED_OVERFLOW : return "OVERFLOW";
         case INVALID_INPUT : return "INVALID INPUT";
     }
 }
@@ -234,7 +234,7 @@ Operation_statuses check_overflow(double number, Precision_formats format) {
     switch(format) {
         case EIGHT_EIGHT: {
             if(number > FIXED_8_8_MAX || number < FIXED_8_8_MIN) {
-                is_overflow = OVERFLOW;
+                is_overflow = FIXED_OVERFLOW;
                 range_min = FIXED_8_8_MIN;
                 range_max = FIXED_8_8_MAX;
             }
@@ -242,21 +242,21 @@ Operation_statuses check_overflow(double number, Precision_formats format) {
         }
         case TWENTYFOUR_EIGHT: {
             if(number > FIXED_24_8_MAX || number < FIXED_24_8_MIN) {
-                is_overflow = OVERFLOW;
+                is_overflow = FIXED_OVERFLOW;
                 range_min = FIXED_24_8_MIN;
                 range_max = FIXED_24_8_MAX;
             }
         }
         case SIXTEEN_SIXTEEN: {
             if(number > FIXED_16_16_MAX || number < FIXED_16_16_MIN) {
-                is_overflow = OVERFLOW;
+                is_overflow = FIXED_OVERFLOW;
                 range_min = FIXED_16_16_MIN;
                 range_max = FIXED_16_16_MAX;
             }
             break;
         }
     }
-    if(is_overflow == OVERFLOW) {
+    if(is_overflow == FIXED_OVERFLOW) {
         fprintf(stderr, "Overflow occured in number %lf => %s format range is [%lf;%lf]\n",
             number, convert_precision_format_to_string(format), range_min, range_max);
     }

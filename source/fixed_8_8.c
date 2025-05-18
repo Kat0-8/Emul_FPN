@@ -219,7 +219,7 @@ Operation_result ALF_fixed_8_8(Operations operation, fixed_8_8_t number_1, fixed
         }
     }
     if (number == OVERFLOW_8_8) {
-        result.status = OVERFLOW;
+        result.status = FIXED_OVERFLOW;
         return result;
     }
     result.number = convert_from_fixed_8_8(number);
