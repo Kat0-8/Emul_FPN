@@ -1,5 +1,6 @@
 .vscode/
 /Emul_FPN
+*.img
 
 # Prerequisites
 *.d
