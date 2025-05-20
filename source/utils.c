@@ -232,29 +232,35 @@ Operation_statuses check_overflow(double number, Precision_formats format) {
     Operation_statuses is_overflow = SUCCESS;
     double range_max, range_min;
     switch(format) {
-        case EIGHT_EIGHT: {
+
+        case EIGHT_EIGHT:
             if(number > FIXED_8_8_MAX || number < FIXED_8_8_MIN) {
                 is_overflow = FIXED_OVERFLOW;
                 range_min = FIXED_8_8_MIN;
                 range_max = FIXED_8_8_MAX;
             }
             break;
-        }
-        case TWENTYFOUR_EIGHT: {
+
+        case TWENTYFOUR_EIGHT:
             if(number > FIXED_24_8_MAX || number < FIXED_24_8_MIN) {
                 is_overflow = FIXED_OVERFLOW;
                 range_min = FIXED_24_8_MIN;
                 range_max = FIXED_24_8_MAX;
             }
-        }
-        case SIXTEEN_SIXTEEN: {
+            break;
+
+        case SIXTEEN_SIXTEEN:
+
             if(number > FIXED_16_16_MAX || number < FIXED_16_16_MIN) {
                 is_overflow = FIXED_OVERFLOW;
                 range_min = FIXED_16_16_MIN;
                 range_max = FIXED_16_16_MAX;
             }
             break;
-        }
+
+        default:
+            fprintf(stderr, "Error: invalid format of fixed number\n");
+            return INVALID_INPUT;
     }
     if(is_overflow == FIXED_OVERFLOW) {
         fprintf(stderr, "Overflow occured in number %lf => %s format range is [%lf;%lf]\n",
